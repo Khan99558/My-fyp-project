@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI TalentMatch - Resume Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0f0f0f] text-white flex justify-center items-center min-h-screen p-4">
+
+    <div class="w-full max-w-2xl bg-[#1a1a1a] border border-gray-800 rounded-3xl p-8 shadow-2xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold mb-2">AI TalentMatch</h1>
+            <p class="text-gray-400">Apna CV upload karo, AI ATS Score bataye ga</p>
+        </div>
+
+        <!-- Upload Box -->
+        <div id="dropZone" class="border-2 border-dashed border-gray-600 rounded-2xl p-10 text-center hover:border-white transition cursor-pointer">
+            <div class="text-5xl mb-4">📄</div>
+            <h3 class="text-xl font-semibold">CV Yahan Drop Karo</h3>
+            <p class="text-sm text-gray-500 mt-2">PDF, DOCX support hai (Max 5MB)</p>
+            <input type="file" id="fileInput" accept=".pdf,.docx" class="hidden">
+            <button onclick="document.getElementById('fileInput').click()" class="mt-6 bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200">
+                File Select Karo
+            </button>
+            <p id="fileName" class="mt-4 text-green-400 hidden"></p>
+        </div>
+
+        <!-- Action Button -->
+        <button id="scanBtn" class="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 py-4 rounded-xl font-bold text-lg opacity-50 cursor-not-allowed" disabled>
+            Scan Karo ✨
+        </button>
+    </div>
+
+<script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileName = document.getElementById('fileName');
+    const scanBtn = document.getElementById('scanBtn');
+
+    fileInput.addEventListener('change', handleFile);
+
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-white'); });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileInput.files = e.dataTransfer.files;
+        handleFile();
+    });
+
+    function handleFile() {
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            fileName.textContent = "Selected: " + file.name;
+            fileName.classList.remove('hidden');
+            scanBtn.disabled = false;
+            scanBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            scanBtn.classList.add('cursor-pointer');
+        }
+    }
+
+    scanBtn.addEventListener('click', () => {
+        scanBtn.textContent = "Scanning... AI soch raha hai...";
+        // Yahan se next page par le jana hai
+        setTimeout(() => {
+            alert("Next Step: Is file ko Python backend par bhejna hai!");
+        }, 1500);
+    });
+</script>
+</body>
+</html>
